@@ -13,9 +13,9 @@ typedef void BarCodeError(dynamic error);
 class BarCodePainter extends CustomPainter {
   BarCodePainter(this.params, this.color, {this.onError});
 
-  final BarCodeParams params;
+  final BarCodeParams? params;
   final Color color;
-  final BarCodeError onError;
+  final BarCodeError? onError;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -95,16 +95,16 @@ class BarCodePainter extends CustomPainter {
       0x96d
     ];
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params?.data;
+    final lineWidth = params?.lineWidth;
+    final hasText = params?.withText;
 
     int codeValue = 0;
     bool hasError = false;
     final painter = new Paint()..style = PaintingStyle.fill;
-    double height = hasText ? size.height * 0.85 : size.height;
+    double height = hasText! ? size.height * 0.85 : size.height;
 
-    for (int i = 0; i < data.length; i++) {
+    for (int i = 0; i < data!.length; i++) {
       switch (data[i]) {
         case '0':
           codeValue = 0;
@@ -245,7 +245,7 @@ class BarCodePainter extends CustomPainter {
         String errorMsg =
             "Invalid content for Code39. Please check https://en.wikipedia.org/wiki/Code_39 for reference.";
         if (this.onError != null) {
-          this.onError(errorMsg);
+          this.onError!(errorMsg);
         } else {
           print(errorMsg);
         }
@@ -254,7 +254,7 @@ class BarCodePainter extends CustomPainter {
 
       for (int j = 0; j < 12; j++) {
         Rect rect = new Rect.fromLTWH(
-            13 * lineWidth + 13 * i * lineWidth + j * lineWidth,
+            13 * lineWidth! + 13 * i * lineWidth + j * lineWidth,
             0.0,
             lineWidth,
             height);
@@ -266,7 +266,7 @@ class BarCodePainter extends CustomPainter {
     }
 
     for (int i = 0; i < 12; i++) {
-      Rect rect = new Rect.fromLTWH(i * lineWidth, 0.0, lineWidth, height);
+      Rect rect = new Rect.fromLTWH(i * lineWidth!, 0.0, lineWidth, height);
       ((0x800 & (binSet[43] << i)) == 0x800)
           ? painter.color = Colors.black
           : painter.color = Colors.white;
@@ -275,7 +275,7 @@ class BarCodePainter extends CustomPainter {
 
     for (int i = 0; i < 12; i++) {
       Rect rect = new Rect.fromLTWH(
-          (13 + i) * lineWidth + 13 * (data.length) * lineWidth,
+          (13 + i) * lineWidth! + 13 * (data.length) * lineWidth,
           0.0,
           lineWidth,
           height);
@@ -298,7 +298,7 @@ class BarCodePainter extends CustomPainter {
         textPainter.paint(
             canvas,
             new Offset(
-                (size.width - data.length * 13 * lineWidth) / 2 +
+                (size.width - data.length * 13 * lineWidth!) / 2 +
                     13 * i * lineWidth,
                 height));
       }
@@ -357,9 +357,9 @@ class BarCodePainter extends CustomPainter {
       0xaf
     ];
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
     int codeValue = 0, checkCodeC, checkCodeK;
     int sumC = 0, sumK = 0;
@@ -517,7 +517,7 @@ class BarCodePainter extends CustomPainter {
         String errorMsg =
             "Invalid content for Code93. Please check https://en.wikipedia.org/wiki/Code_93 for reference.";
         if (this.onError != null) {
-          this.onError(errorMsg);
+          this.onError!(errorMsg);
         } else {
           print(errorMsg);
         }
@@ -721,11 +721,11 @@ class BarCodePainter extends CustomPainter {
       0x69c
     ];
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
-    int codeValue, checkCode, strlen = data.length;
+    int? codeValue, checkCode, strlen = data.length;
     ByteData strValue = new ByteData(strlen);
     int sum = 0, startValue = 0x690, endFlag = 0x18eb;
     bool hasError = false;
@@ -1036,14 +1036,14 @@ class BarCodePainter extends CustomPainter {
         String errorMsg =
             "Invalid content for Code128. Please check https://en.wikipedia.org/wiki/Code_128 for reference.";
         if (this.onError != null) {
-          this.onError(errorMsg);
+          this.onError!(errorMsg);
         } else {
           print(errorMsg);
         }
         return;
       }
 
-      strValue.setUint8(i, codeValue);
+      strValue.setUint8(i, codeValue!);
       sum += strValue.getUint8(i) * (i + 1);
       for (int j = 0; j < 11; j++) {
         Rect rect = new Rect.fromLTWH(
@@ -1153,12 +1153,12 @@ class BarCodePainter extends CustomPainter {
       0x1a
     ];
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
     int startCodeSep = 0x05, midCodeSep = 0x0a, endCodeSep = 0x05;
-    int tmpCode,
+    int? tmpCode,
         tmpBarCode,
         checkCode,
         sum2nd,
@@ -1187,7 +1187,7 @@ class BarCodePainter extends CustomPainter {
       String errorMsg =
           "Invalid content for code EAN13. Please check https://en.wikipedia.org/wiki/International_Article_Number for reference.";
       if (this.onError != null) {
-        this.onError(errorMsg);
+        this.onError!(errorMsg);
       } else {
         print(errorMsg);
       }
@@ -1208,7 +1208,7 @@ class BarCodePainter extends CustomPainter {
       if (i == 0) {
         flagbit = tmpCode;
       } else {
-        if ((0x20 & (flagCode[flagbit] << (i - 1))) == 0) {
+        if ((0x20 & (flagCode[flagbit!] << (i - 1))) == 0) {
           for (int j = 0; j < 7; j++) {
             Rect rect = new Rect.fromLTWH(
                 14 * lineWidth + 7 * (i - 1) * lineWidth + j * lineWidth,
@@ -1374,9 +1374,9 @@ class BarCodePainter extends CustomPainter {
     ];
     int startCodeSep = 0x05, midCodeSep = 0x0a, endCodeSep = 0x05;
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
     int tmpCode, tmpBarCode, checkCode, sum2nd, sum3rd, strlen = data.length;
     ByteData st = new ByteData(7);
@@ -1395,7 +1395,7 @@ class BarCodePainter extends CustomPainter {
       String errorMsg =
           "Invalid content for code EAN8. Please check https://en.wikipedia.org/wiki/EAN-8 for reference.";
       if (this.onError != null) {
-        this.onError(errorMsg);
+        this.onError!(errorMsg);
       } else {
         print(errorMsg);
       }
@@ -1544,9 +1544,9 @@ class BarCodePainter extends CustomPainter {
     ];
     int startCodeSep = 0x05, midCodeSep = 0x0a, endCodeSep = 0x05;
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
     int tmpCode, tmpBarCode, checkCode, sum2nd, sum3rd, strlen = data.length;
     ByteData st = new ByteData(11);
@@ -1565,7 +1565,7 @@ class BarCodePainter extends CustomPainter {
       String errorMsg =
           "Invalid content for coe UPC-A. Please check https://en.wikipedia.org/wiki/Universal_Product_Code for reference.";
       if (this.onError != null) {
-        this.onError(errorMsg);
+        this.onError!(errorMsg);
       } else {
         print(errorMsg);
       }
@@ -1744,9 +1744,9 @@ class BarCodePainter extends CustomPainter {
       0x25
     ];
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
     int startCodeSep = 0x05, endCodeSep = 0x15;
     int tmpCode, checkCode, sum2nd, sum3rd, strlen;
@@ -1760,7 +1760,7 @@ class BarCodePainter extends CustomPainter {
       hasError = true;
     }
 
-    String upce2upca;
+    String? upce2upca;
     switch (data.codeUnitAt(6) - 48) {
       case 0:
         upce2upca =
@@ -1798,7 +1798,7 @@ class BarCodePainter extends CustomPainter {
     }
 
     for (int i = 0; i < 11; i++) {
-      st.setUint8(i, upce2upca.codeUnitAt(i) - 48);
+      st.setUint8(i, upce2upca!.codeUnitAt(i) - 48);
       if (st.getUint8(i) > 9) {
         hasError = true;
         break;
@@ -1809,7 +1809,7 @@ class BarCodePainter extends CustomPainter {
       String errorMsg =
           "Invalid content for code UPCE. Please check https://en.wikipedia.org/wiki/Universal_Product_Code#UPC-E for reference.";
       if (this.onError != null) {
-        this.onError(errorMsg);
+        this.onError!(errorMsg);
       } else {
         print(errorMsg);
       }
@@ -2006,7 +2006,7 @@ class BarCodePainter extends CustomPainter {
         String errorMsg =
             "${cleanData[x]} or ${cleanData[x + 1]} is not a number.";
         if (this.onError != null) {
-          this.onError(errorMsg);
+          this.onError!(errorMsg);
         } else {
           print(errorMsg);
         }
@@ -2105,12 +2105,12 @@ class BarCodePainter extends CustomPainter {
       "D": "1010011001"
     };
 
-    final data = params.data;
-    final lineWidth = params.lineWidth;
-    final hasText = params.withText;
+    final data = params!.data;
+    final lineWidth = params!.lineWidth;
+    final hasText = params!.withText;
 
     //int codeValue = 0;
-    String bitValue = '';
+    String? bitValue = '';
     bool hasError = false;
     final painter = new Paint()..style = PaintingStyle.fill;
     double height = hasText ? size.height * 0.85 : size.height;
@@ -2127,14 +2127,14 @@ class BarCodePainter extends CustomPainter {
         String errorMsg =
             "Invalid content for Coddabar. Please check https://en.wikipedia.org/wiki/Codabar for reference.";
         if (this.onError != null) {
-          this.onError(errorMsg);
+          this.onError!(errorMsg);
         } else {
           print(errorMsg);
         }
         return;
       }
 
-      for (int j = 0; j < bitValue.length; j++) {
+      for (int j = 0; j < bitValue!.length; j++) {
         Rect rect = new Rect.fromLTWH(
             13 * lineWidth + 13 * i * lineWidth + j * lineWidth,
             0.0,

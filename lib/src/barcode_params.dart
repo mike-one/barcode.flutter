@@ -10,7 +10,7 @@ abstract class BarCodeParams {
   double lineWidth;
   double barHeight;
   double get barCodeWidth;
-  String altText;
+  String? altText;
 
   BarCodeParams(
     this.data,
@@ -29,8 +29,8 @@ class EAN13BarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (lineWidth * 113);
@@ -44,8 +44,8 @@ class EAN8BarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (lineWidth * 81);
@@ -59,8 +59,8 @@ class Code39BarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (data.length + 2) * 13 * lineWidth;
@@ -74,8 +74,8 @@ class Code93BarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (data.length + 5) * 9 * lineWidth - 3;
@@ -89,8 +89,8 @@ class Code128BarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth =>
@@ -105,8 +105,8 @@ class UPCABarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (lineWidth * 113);
@@ -120,8 +120,8 @@ class UPCEBarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (lineWidth * 67);
@@ -150,7 +150,7 @@ class ITFBarCodeParams extends BarCodeParams {
 
   /// Whether or not to draw bearer bars, this should always be true
   ///
-  final bool withBearerBars;
+  final bool? withBearerBars;
 
   ITFBarCodeParams(
     String data, {
@@ -161,14 +161,14 @@ class ITFBarCodeParams extends BarCodeParams {
     this.quietZoneRatio = 10.0,
     this.bearerBarRatio = 3.0,
     this.withBearerBars = true,
-    String altText,
+    String? altText,
   })  : assert(wideBarRatio >= 2.25 && wideBarRatio <= 3.0,
             "wideBarRatio must be between 2.25 and 3.0"),
         assert(quietZoneRatio >= 10,
             "quietZoneRatio must be greater or equal to 10"),
         assert(bearerBarRatio >= 2,
             "bearerBarRatio must be greater or equal to 2"),
-        super(data, withText, lineWidth, barHeight, altText);
+        super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth =>
@@ -185,8 +185,8 @@ class CodabarBarCodeParams extends BarCodeParams {
     bool withText = false,
     double lineWidth = 2.0,
     double barHeight = 100.0,
-    String altText,
-  }) : super(data, withText, lineWidth, barHeight, altText);
+    String? altText,
+  }) : super(data, withText, lineWidth, barHeight, altText!);
 
   @override
   double get barCodeWidth => (data.length + 2) * 13 * lineWidth;

@@ -1,6 +1,9 @@
 name: barcode_flutter_demo
 description: Demo project for the Flutter Barcode library.
 
+environment:
+  sdk: ">=2.12.0 < 3.0.0"
+
 dependencies:
   flutter:
     sdk: flutter

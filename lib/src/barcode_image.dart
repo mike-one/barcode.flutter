@@ -40,7 +40,7 @@ class BarCodeImage<T extends BarCodeParams> extends StatelessWidget {
     @deprecated this.lineWidth = 2.0,
     @deprecated this.barHeight = 100.0,
     @deprecated this.hasText = false,
-    BarCodeParams params,
+    BarCodeParams? params,
     this.padding,
     this.backgroundColor,
     Color foregroundColor = const Color(0xFF000000),
@@ -51,25 +51,25 @@ class BarCodeImage<T extends BarCodeParams> extends StatelessWidget {
                 (params == null && data != null && codeType != null),
             "params and data+codeType cannot be set at the same time"),
         _painter = BarCodePainter(
-            params ?? _getBarcodeParams(codeType, data, lineWidth, barHeight, hasText), foregroundColor,
-            onError: onError);
+            params ?? _getBarcodeParams(codeType!, data!, lineWidth, barHeight, hasText), foregroundColor,
+            onError: onError!);
 
   /// deprecated params
-  final String data;
-  final BarCodeType codeType;
+  final String? data;
+  final BarCodeType? codeType;
   final double lineWidth;
   final double barHeight;
   final bool hasText;
 
-  T get params => _painter.params;
+  BarCodeParams? get params => _painter!.params;
 
-  final BarCodePainter _painter;
-  final Color backgroundColor;
+  final BarCodePainter? _painter;
+  final Color? backgroundColor;
 
-  final EdgeInsets padding;
-  final BarCodeError onError;
+  final EdgeInsets? padding;
+  final BarCodeError? onError;
 
-  static BarCodeParams _getBarcodeParams(
+  static BarCodeParams? _getBarcodeParams(
       BarCodeType type, String data, double lineWidth, double barHeight, bool hasText) {
     switch (type) {
       case BarCodeType.CodeEAN13:
@@ -95,8 +95,8 @@ class BarCodeImage<T extends BarCodeParams> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: params.barCodeWidth + (padding?.left ?? 0) + (padding?.right ?? 0),
-      height: params.barHeight + (padding?.top ?? 0) + (padding?.bottom ?? 0),
+      width: (params?.barCodeWidth)! + (padding?.left ?? 0) + (padding?.right ?? 0),
+      height: (params?.barHeight)! + (padding?.top ?? 0) + (padding?.bottom ?? 0),
       decoration: BoxDecoration(
         color: backgroundColor,
       ),

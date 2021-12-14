@@ -174,7 +174,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({this.barcodes});
-  final List<BarCodeItem> barcodes;
+  final List<BarCodeItem>? barcodes;
   final String title = "BarCode Flutter";
 
   @override
@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView(
-        children: widget.barcodes.map((element) {
+        children: widget.barcodes!.map((element) {
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: Card(
@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      element.description,
+                      element.description!,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -224,8 +224,8 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class BarCodeItem {
-  String description;
-  BarCodeImage image;
+  String? description;
+  BarCodeImage? image;
   BarCodeItem({
     this.image,
     this.description,
